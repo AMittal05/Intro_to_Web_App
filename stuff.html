@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baking Inventory</title>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body class="deep purple lighten-4">
+    <div class="container">
+        <div class="section" id="BakingList">
+            <h1 class="white-text">Baking Inventory</h1>
+            <div class="section">
+                <a class="waves-effect purple btn" href="index.html"><i class="material-icons right">arrow_forward</i>Return to Homepage</a>
+            </div>
+        <table class="centered responsive">
+            <thead>
+              <tr>
+                  <th class="white-text">Item</th>
+                  <th class="white-text">Ingredients</th>
+                  <th class="white-text">Price</th>
+                  <th class="white-text">Quantity</th>
+                  <th class="white-text">Link</th>
+              </tr>
+            </thead>
+    
+            <tbody>
+                <tr>
+                  <td class="white-text">Cupcake</td>
+                  <td class="white-text">Insert Ingredients</td>
+                  <td class="white-text">$1.00</td>
+                  <td class="white-text">24</td>
+                  <td class="white-text">Insert Link</td>
+                  <td>
+                    <a class="btn-small waves-effect deep-purple accent-1 waves-light" href="item.html"><i
+                        class="material-icons right">edit</i>Info/Edit</a>
+                    <a class="btn-small waves-effect waves-light pink lighten-3"><i
+                        class="material-icons right">delete</i>Delete</a>
+                  </td>
+                </tr>
+    
+                <tr>
+                    <td class="white-text">Crepe</td>
+                    <td class="white-text">Insert Ingredients</td>
+                    <td class="white-text">$2.00</td>
+                    <td class="white-text">10</td>
+                    <td class="white-text">Insert Link</td>
+                    <td>
+                        <a class="btn-small waves-effect deep-purple accent-1 waves-light" href="item.html"><i
+                            class="material-icons right">edit</i>Info/Edit</a>
+                        <a class="btn-small waves-effect waves-light pink lighten-3"><i
+                            class="material-icons right">delete</i>Delete</a>
+                      </td>
+                </tr>
+              </tbody>
+        </table>
+
+        <div class="section" id="stuffAdd">
+            <h2 class="white-text">Add Items:</h2>
+            <form>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <label for="name" class="white-text">Item Name:</label>
+                        <input type="text" name="name" class="validate" data-length="32" required>
+                    </div>
+                    <div class="input-field col s6">
+                        <label for="quantity" class="white-text">Item Quantity:</label>
+                        <input type="number" name="quantity">
+                    </div>
+                    <div class="input-field col s6">
+                        <label for="quantity" class="white-text">Item Ingredients:</label>
+                        <input type="text" name="ingredients">
+                    </div>
+                    <div class="input-field col s6">
+                        <label for="quantity" class="white-text">Item Price:</label>
+                        <input type="number" name="price">
+                    </div>
+                    <div class="input-field col s6">
+                        <label for="link" class="white-text">Item Link:</label>
+                        <input type="text" name="link">
+                    </div>
+                </div>
+                <button class="btn waves-effect purple waves-light" type="submit"><i
+                        class="material-icons right">add_circle</i>Add Item</button>
+            </form>
+        </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>

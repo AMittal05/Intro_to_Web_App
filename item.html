@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Items</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body class="deep purple lighten-4">
+    <div class="container">
+        <div class="section flow-text" id="stuffDetail">
+            <h1 class="white-text">Item Details:</h1>
+            <table class="white-text">
+                <tr>
+                    <th>Item:</th>
+                    <td>Cupcake</td>
+                </tr>
+                <tr>
+                    <th>Ingredients:</th>
+                    <td>Insert Ingredients</td>
+                </tr>
+                <tr>
+                    <th>Price:</th>
+                    <td>$1.00</Td>
+                </tr>
+                <tr>
+                    <th>Quantity:</th>
+                    <td>24</td>
+                </tr>
+                <tr>
+                    <th>Link:</th>
+                    <td>
+                        Insert link
+                    </td>
+                </tr>
+                <tr>
+                    <th>Description:</th>
+                    <td>
+                        Cupcakes are tasty!
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section" id="stuffControls">
+            <a class="btn-large waves-effect waves-light deep purple lighten-1 left modal-trigger" href="#stuffEdit">
+                <i class="material-icons right">edit</i>Edit
+            </a>
+            <a class="btn-large waves-effect waves-light deep purple lighten-1 right">
+                <i class="material-icons right">delete</i>Delete
+            </a>
+        </div>
+
+        <div class="modal" id="stuffEdit">
+
+            <div class="modal-content">
+
+                <h2 class="purple-text">Edit item:</h2>
+                <form>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <label for="name" class="purple-text">Item Name:</label>
+                            <input type="text" name="name" class="validate" data-length="32" required>
+                        </div>
+                        <div class="input-field col s6">
+                            <label for="quantity" class="purple-text">Item Quantity:</label>
+                            <input type="number" name="quantity" value=1 required>
+                        </div>
+                        <div class="input-field col s6">
+                            <label for="price" class="purple-text">Item Price:</label>
+                            <input type="number" name="price" required>
+                        </div>
+                        <div class="input-field col s6">
+                            <label for="ingredients" class="purple-text">Item Ingredients:</label>
+                            <input type="number" name="ingredients" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <label for="description" class="purple-text">Item Description:</label>
+                            <input type="text" name="description" data-length="100">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn waves-effect deep-purple accent-1 waves-light " type="submit"><i
+                                class="material-icons right">send</i>Submit</button>
+
+                        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Never Mind</a>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    <!-- Materialize JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <!-- initialize Materialize elements -->
+    <script> M.AutoInit();</script>
+    
+</body>
+</html>
