@@ -1,0 +1,5 @@
+DB_HOST=soccerdb.calingaiy4id.us-east-2.rds.amazonaws.com
+DB_PORT=3306
+DB_USER=amimit23
+DB_PASSWORD=ffaxks5uqmuf
+DB_DATABASE=webapp2122t3_amimit23

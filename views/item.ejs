@@ -8,6 +8,8 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
 <body class="deep purple lighten-4">
     <div class="container">
@@ -16,40 +18,37 @@
             <table class="white-text">
                 <tr>
                     <th>Item:</th>
-                    <td>Cupcake</td>
+                    <td><%= item %></td>
                 </tr>
                 <tr>
                     <th>Ingredients:</th>
-                    <td>Insert Ingredients</td>
+                    <td><%= ingredients %></td>
                 </tr>
                 <tr>
                     <th>Price:</th>
-                    <td>$1.00</Td>
+                    <td><%= cost %></Td>
                 </tr>
                 <tr>
                     <th>Quantity:</th>
-                    <td>24</td>
+                    <td><%= quantity %></td>
                 </tr>
                 <tr>
                     <th>Link:</th>
-                    <td>
-                        Insert link
-                    </td>
+                    <td><%= link %></td>
                 </tr>
                 <tr>
                     <th>Description:</th>
-                    <td>
-                        Cupcakes are tasty!
-                    </td>
+                    <td><%= description %></td>
                 </tr>
             </table>
         </div>
+        <a class="waves-effect waves-light deep purple lighten-1 btn" href="/"><i class="material-icons right">arrow_forward</i>Return to Homepage</a>
 
         <div class="section" id="stuffControls">
             <a class="btn-large waves-effect waves-light deep purple lighten-1 left modal-trigger" href="#stuffEdit">
                 <i class="material-icons right">edit</i>Edit
             </a>
-            <a class="btn-large waves-effect waves-light deep purple lighten-1 right">
+            <a class="btn-large waves-effect waves-light deep purple lighten-1 right" href="/stuff/item/<%= id %>/delete">
                 <i class="material-icons right">delete</i>Delete
             </a>
         </div>
@@ -59,29 +58,33 @@
             <div class="modal-content">
 
                 <h2 class="purple-text">Edit item:</h2>
-                <form>
+                <form method="post" action="/stuff/item/<%= id%>">
                     <div class="row">
                         <div class="input-field col s6">
                             <label for="name" class="purple-text">Item Name:</label>
-                            <input type="text" name="name" class="validate" data-length="32" required>
+                            <input type="text" id="name" name="name" class="validate" data-length="32" value="<%= item%>">
                         </div>
                         <div class="input-field col s6">
                             <label for="quantity" class="purple-text">Item Quantity:</label>
-                            <input type="number" name="quantity" value=1 required>
+                            <input type="number" id="quantity" name="quantity" value="<%= quantity%>">
                         </div>
                         <div class="input-field col s6">
-                            <label for="price" class="purple-text">Item Price:</label>
-                            <input type="number" name="price" required>
+                            <label for="cost" class="purple-text">Item Price:</label>
+                            <input type="number" id="cost" name="cost" value="<%= cost%>">
                         </div>
                         <div class="input-field col s6">
                             <label for="ingredients" class="purple-text">Item Ingredients:</label>
-                            <input type="number" name="ingredients" required>
+                            <input type="text" id="ingredients" name="ingredients" value="<%= ingredients%>">
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
                             <label for="description" class="purple-text">Item Description:</label>
-                            <input type="text" name="description" data-length="100">
+                            <input type="text" id="description" name="description" data-length="100" value="<%= description%>">
+                        </div>
+                        <div class="input-field col s6">
+                            <label for="link" class="purple-text">Item Link:</label>
+                            <input type="text" id="link" name="link" value="<%= link%>">
                         </div>
                     </div>
                     <div class="modal-footer">

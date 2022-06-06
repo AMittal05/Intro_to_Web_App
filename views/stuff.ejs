@@ -8,13 +8,17 @@
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <link rel="stylesheet" href="/stylesheets/style.css">
+
 </head>
 <body class="deep purple lighten-4">
     <div class="container">
         <div class="section" id="BakingList">
             <h1 class="white-text">Baking Inventory</h1>
+            <img class="right" src="https://img.freepik.com/free-vector/vanilla-tart-with-fruit-top-isolated-illustration_172149-96.jpg" style="max-width: 15%">
             <div class="section">
-                <a class="waves-effect purple btn" href="index.html"><i class="material-icons right">arrow_forward</i>Return to Homepage</a>
+                <a class="waves-effect purple btn" href="/"><i class="material-icons right">arrow_forward</i>Return to Homepage</a>
             </div>
         <table class="centered responsive">
             <thead>
@@ -28,39 +32,27 @@
             </thead>
     
             <tbody>
-                <tr>
-                  <td class="white-text">Cupcake</td>
-                  <td class="white-text">Insert Ingredients</td>
-                  <td class="white-text">$1.00</td>
-                  <td class="white-text">24</td>
-                  <td class="white-text">Insert Link</td>
-                  <td>
-                    <a class="btn-small waves-effect deep-purple accent-1 waves-light" href="item.html"><i
-                        class="material-icons right">edit</i>Info/Edit</a>
-                    <a class="btn-small waves-effect waves-light pink lighten-3"><i
-                        class="material-icons right">delete</i>Delete</a>
-                  </td>
-                </tr>
-    
-                <tr>
-                    <td class="white-text">Crepe</td>
-                    <td class="white-text">Insert Ingredients</td>
-                    <td class="white-text">$2.00</td>
-                    <td class="white-text">10</td>
-                    <td class="white-text">Insert Link</td>
-                    <td>
-                        <a class="btn-small waves-effect deep-purple accent-1 waves-light" href="item.html"><i
-                            class="material-icons right">edit</i>Info/Edit</a>
-                        <a class="btn-small waves-effect waves-light pink lighten-3"><i
-                            class="material-icons right">delete</i>Delete</a>
-                      </td>
-                </tr>
+                <% for(let i = 0; i < inventory.length; i++) { %>
+                    <tr>
+                        <td class="white-text"><%=inventory[i].item %></td>
+                        <td class="white-text"><%=inventory[i].ingredients %></td>
+                        <td class="white-text"><%=inventory[i].cost %></td>
+                        <td class="white-text"><%=inventory[i].quantity %></td>
+                        <td class="white-text"><%=inventory[i].link %></td>
+                        <td>
+                          <a class="btn-small waves-effect deep-purple accent-1 waves-light" href="/stuff/item/<%= inventory[i].id %>"><i
+                              class="material-icons right">edit</i>Info/Edit</a>
+                          <a class="btn-small waves-effect waves-light pink lighten-3" href="/stuff/item/<%= inventory[i].id %>/delete"><i
+                              class="material-icons right">delete</i>Delete</a>
+                        </td>
+                      </tr>
+                <% } %>
               </tbody>
         </table>
 
         <div class="section" id="stuffAdd">
             <h2 class="white-text">Add Items:</h2>
-            <form>
+            <form method="post" action="/stuff">
                 <div class="row">
                     <div class="input-field col s6">
                         <label for="name" class="white-text">Item Name:</label>
@@ -71,12 +63,12 @@
                         <input type="number" name="quantity">
                     </div>
                     <div class="input-field col s6">
-                        <label for="quantity" class="white-text">Item Ingredients:</label>
+                        <label for="ingredients" class="white-text">Item Ingredients:</label>
                         <input type="text" name="ingredients">
                     </div>
                     <div class="input-field col s6">
-                        <label for="quantity" class="white-text">Item Price:</label>
-                        <input type="number" name="price">
+                        <label for="cost" class="white-text">Item Price:</label>
+                        <input type="number" name="cost">
                     </div>
                     <div class="input-field col s6">
                         <label for="link" class="white-text">Item Link:</label>
