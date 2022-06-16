@@ -8,6 +8,7 @@ db.execute(drop_baked_goods_sql);
 
 const create_baked_goods_table_sql = `
     CREATE TABLE bakedGood (
+        Email VARCHAR(45) NULL,
         id INT NOT NULL AUTO_INCREMENT,
         Item VARCHAR(45) NOT NULL,
         Quantity INT,

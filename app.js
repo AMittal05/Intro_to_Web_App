@@ -11,12 +11,37 @@ const port = process.env.PORT;
 app.set("views", __dirname + "/views");
 app.set("view engine", "ejs");
 
+// Configure Auth0
+const { auth } = require('express-openid-connect');
+
+const config = {
+  authRequired: false,
+  auth0Logout: true,
+  secret: process.env.AUTH0_SECRET,
+  baseURL: process.env.AUTH0_BASE_URL,
+  clientID: process.env.AUTH0_CLIENT_ID,
+  issuerBaseURL: process.env.AUTH0_ISSUER_BASE_URL
+};
+
+// auth router attaches /login, /logout, and /callback routes to the baseURL
+app.use(auth(config));
+
 // Configure express to parse URL-encoded POST request bodies (traditional forms)
 app.use(express.urlencoded({extended : false}))
 
 app.use(logger("dev"));
 
 app.use(express.static(__dirname + '/public'));
+
+app.get('/testLogin', (req, res) => {
+    res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
+  });
+
+const { requiresAuth } = require('express-openid-connect');
+
+app.get('/profile', requiresAuth(), (req, res) => {
+  res.send(JSON.stringify(req.oidc.user));
+});
 
 // define a route for the default home page
 app.get( "/", ( req, res ) => {
@@ -28,15 +53,17 @@ const read_goods_all_sql = `
         id, item, quantity, cost, ingredients, link
     FROM
         bakedGood
+    WHERE
+        Email = ?
 `
 
 // define a route for the stuff inventory page
-app.get( "/stuff", ( req, res ) => {   
-    db.execute(read_goods_all_sql, (error, results) => {
+app.get( "/stuff", requiresAuth(), ( req, res ) => {   
+    db.execute(read_goods_all_sql, [req.oidc.user.email], (error, results) => {
         if (error)
             res.status(500).send(error); // Internal Server Error = 500
         else
-            res.render("stuff", {inventory : results});
+            res.render("stuff", {inventory : results, username : req.oidc.user.name});
             // inventory's shape:
             // [
             // {id : ___, item : ___, quantity : ___, cost : ___, ingredients : ___, link : ____}
@@ -51,11 +78,12 @@ const read_baked_item = `
         bakedGood
     WHERE
         id = ?
+        AND email = ?
 `
 
 // define a route for the item detail page
-app.get( "/stuff/item/:id", ( req, res ) => {
-    db.execute(read_baked_item, [req.params.id], (error, results) => {
+app.get( "/stuff/item/:id", requiresAuth(), ( req, res ) => {
+    db.execute(read_baked_item, [req.params.id, req.oidc.user.email], (error, results) => {
         if (error)
             res.status(500).send(error);
         else if (results.length == 0)
@@ -73,9 +101,10 @@ const delete_good_sql = `
         bakedGood
     WHERE
         id = ?
+        AND email = ?
 `
-app.get("/stuff/item/:id/delete", ( req, res ) => {
-    db.execute(delete_good_sql, [req.params.id], (error, results) => {
+app.get("/stuff/item/:id/delete", requiresAuth(), ( req, res ) => {
+    db.execute(delete_good_sql, [req.params.id, req.oidc.user.email], (error, results) => {
         if (error)
             res.status(500).send(error); //Internal Server Error
         else {
@@ -86,11 +115,11 @@ app.get("/stuff/item/:id/delete", ( req, res ) => {
 
 const create_good_sql = `
     INSERT INTO bakedGood
-        (item, quantity, cost, ingredients, link)
+        (item, quantity, cost, ingredients, link, email)
     VALUES
-        (?, ?, ?, ?, ?)
+        (?, ?, ?, ?, ?, ?)
 `
-app.post("/stuff", (req, res) => {
+app.post("/stuff", requiresAuth(), (req, res) => {
     // to get the form input vaues:
     // req.body.name
     // req.body.quantity
@@ -98,7 +127,7 @@ app.post("/stuff", (req, res) => {
     if (req.body.quantity != "") {
         quantity = req.body.quantity;
     }
-    db.execute(create_good_sql, [req.body.name, quantity, req.body.cost, req.body.ingredients, req.body.link], (error, results) => {
+    db.execute(create_good_sql, [req.body.name, quantity, req.body.cost, req.body.ingredients, req.body.link, req.oidc.user.email], (error, results) => {
         if (error)
             res. status(500).send(error);
         else {
@@ -119,14 +148,15 @@ const update_goods_sql = `
         link = ?
     WHERE
         id = ?
+        AND email = ?
 `
 
-app.post("/stuff/item/:id", ( req, res ) => {
+app.post("/stuff/item/:id", requiresAuth(), ( req, res ) => {
     let quantity = null;
     if (req.body.quantity != "") {
         quantity = req.body.quantity;
     }
-    db.execute(update_goods_sql, [req.body.name, quantity, req.body.description, req.body.cost, req.body.ingredients, req.body.link, req.params.id], (error, results) => {
+    db.execute(update_goods_sql, [req.body.name, quantity, req.body.description, req.body.cost, req.body.ingredients, req.body.link, req.params.id, req.oidc.user.email], (error, results) => {
         if (error)
             res. status(500).send(error);
         else {
